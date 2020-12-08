@@ -6,19 +6,18 @@ namespace Cavp;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Cavp\Infrastructure\ItemCommand;
+use Cavp\Infrastructure\ItemServer;
 
 /**
  * main function.
  *
- * @param array<string> $argv
- * @return int $exitCode
+ * @param array<string> $requestParams
  */
-function main(array $argv): int
+function main($requestParams): void
 {
-    $itemCommand = ItemCommand::factory();
-    return $itemCommand->execute($argv);
+    $itemServer = ItemServer::factory('./storage/items.json');
+
+    $itemServer->execute($requestParams);
 }
 
-$exitCode = main($argv);
-exit($exitCode);
+main($_REQUEST);

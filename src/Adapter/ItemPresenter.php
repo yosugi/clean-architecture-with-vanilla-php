@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cavp\Adapter;
 
 use Cavp\Domain\ItemEntity;
+use RuntimeException;
 
 class ItemPresenter
 {
@@ -22,7 +23,7 @@ class ItemPresenter
      */
     public function format(ItemEntity $itemEntity): string
     {
-        // to LTSV
+        // to JSON
         $nameToValueMap = [
             'id' => $itemEntity->id,
             'name' => $itemEntity->name,
@@ -31,12 +32,12 @@ class ItemPresenter
             'priceIncludingTax' => $itemEntity->priceIncludingTax,
         ];
 
-        $props = [];
+        $encoded = json_encode($nameToValueMap);
 
-        foreach ($nameToValueMap as $key => $value) {
-            $props[] = implode(':', [$key, $value]);
+        if ($encoded === false) {
+            throw new RuntimeException('json encode error', 500);
         }
 
-        return implode("\t", $props);
+        return $encoded;
     }
 }

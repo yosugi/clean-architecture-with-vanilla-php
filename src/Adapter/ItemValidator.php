@@ -17,19 +17,23 @@ class ItemValidator
     }
 
     /**
-     * @param array<string> $args
+     * @param array<string> $params
      * @return int
      */
-    public function validate(array $args): int
+    public function validate(array $params): int
     {
-        if (empty($args)) {
+        if (empty($params)) {
             throw new RuntimeException('needs parameter.');
         }
 
-        $itemId = reset($args);
+        if (!isset($params['id'])) {
+            throw new RuntimeException('id parameter is empty.');
+        }
+
+        $itemId = $params['id'];
 
         if (!is_numeric($itemId)) {
-            throw new RuntimeException('parameter must be a integer.');
+            throw new RuntimeException('id parameter must be a integer.');
         }
 
         return (int) $itemId;

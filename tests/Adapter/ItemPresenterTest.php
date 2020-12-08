@@ -22,7 +22,7 @@ class ItemPresenterTest extends TestCase
         $itemEntity = new ItemEntity(1, 'name', 200, false, 220.0);
         $actual = self::$presenter->format($itemEntity);
 
-        $expect = "id:1\tname:name\tprice:200\tisReducedTaxRate:false\tpriceIncludingTax:220";
+        $expect = '{"id":1,"name":"name","price":200,"isReducedTaxRate":"false","priceIncludingTax":220}';
 
         $this->assertSame($expect, $actual);
     }

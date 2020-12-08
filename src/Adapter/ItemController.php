@@ -45,15 +45,16 @@ class ItemController
     }
 
     /**
-     * @param array<string> $args
+     * @param array<string> $params
      * @return string
      */
-    public function getItemWithTax(array $args): string
+    public function getItemWithTax(array $params): string
     {
-        $itemId = $this->itemValidator->validate($args);
-        $itemEntity = $this->itemInteractor->getItemWithTax($itemId);
-        $ltsv = $this->itemPresenter->format($itemEntity);
+        $itemId = $this->itemValidator->validate($params);
 
-        return $ltsv;
+        $itemEntity = $this->itemInteractor->getItemWithTax($itemId);
+        $json = $this->itemPresenter->format($itemEntity);
+
+        return $json;
     }
 }

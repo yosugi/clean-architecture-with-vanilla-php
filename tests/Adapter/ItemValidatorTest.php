@@ -19,7 +19,7 @@ class ItemValidatorTest extends TestCase
 
     public function testValidate(): void
     {
-        $actual = self::$validator->validate(['1']);
+        $actual = self::$validator->validate(['id' => 1]);
 
         $this->assertSame(1, $actual);
     }
@@ -35,8 +35,8 @@ class ItemValidatorTest extends TestCase
     public function testValidateInvalidArg(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('parameter must be a integer.');
+        $this->expectExceptionMessage('id parameter must be a integer.');
 
-        self::$validator->validate(['a']);
+        self::$validator->validate(['id' => 'a']);
     }
 }
